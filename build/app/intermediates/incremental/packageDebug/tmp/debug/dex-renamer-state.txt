@@ -1,4 +1,0 @@
-#Tue Jun 04 14:21:01 CDT 2019
-base.0=D\:\\src\\pensieve\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex
