@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../fake_data/data.dart';
+//import '../widgets/addthoughtmodal_old.dart';
+import '../widgets/addthoughtmodal.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +12,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final AddThoughtModal addThoughtModal = AddThoughtModal();
+
+  _addThought(String thought) {
+    print(thought);
+  }
+
   _buildBackground(double width, double height) {
     return Align(
       alignment: Alignment.topRight,
@@ -17,7 +25,7 @@ class _HomeState extends State<Home> {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 55, 71, 79),
+          color: Color(0xFFFAFBFC),
         ),
       ),
     );
@@ -27,15 +35,46 @@ class _HomeState extends State<Home> {
     return Positioned(
       top: height * 0.05,
       left: 30,
-      child: Text(
-        'Concepts',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 48.77,
-          letterSpacing: 0.0,
-          fontFamily: "Rubik",
-          fontWeight: FontWeight.w300,
-        ),
+      right: 30,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Concepts',
+            style: TextStyle(
+              color: Color(0xFF000000).withOpacity(0.77),
+              fontSize: 48.77,
+              letterSpacing: 0.0,
+              fontFamily: "Rubik",
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+          Container(
+            width: 37,
+            height: 37,
+            decoration: BoxDecoration(
+                color: Color(0xFFffffff),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                      color: Color(0xFF90a4ae).withOpacity(0.6),
+                      offset: Offset(0.0, 3.0),
+                      blurRadius: 10.0),
+                ]),
+            child: RawMaterialButton(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                shape: StadiumBorder(),
+                child: Icon(
+                  Icons.settings,
+                  size: 16,
+                ),
+                onPressed: () {
+                  print('settings');
+                }),
+          ),
+        ],
       ),
     );
   }
@@ -44,6 +83,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: LayoutBuilder(
         builder: (context, constraints) {
           var width = constraints.maxWidth;
@@ -86,7 +126,7 @@ class _HomeState extends State<Home> {
 //                                        Colors.indigo[400],
 //                                      ],
 //                                    ),
-                                      color: Color(0xFF90a4ae),
+                                      color: Color(0xFF83aaa6),
                                       boxShadow: [
                                         BoxShadow(
                                             color: Colors.black12,
@@ -106,7 +146,8 @@ class _HomeState extends State<Home> {
                                       Text(
                                         title[index],
                                         style: TextStyle(
-                                          color: Colors.black87,
+                                          color: Color(0xFF000000)
+                                              .withOpacity(0.77),
                                           fontSize: 34.54,
                                           letterSpacing: 0.25,
                                           fontFamily: "Rubik",
@@ -116,7 +157,8 @@ class _HomeState extends State<Home> {
                                       Text(
                                         descriptions[index],
                                         style: TextStyle(
-                                          color: Colors.black87,
+                                          color: Color(0xFF000000)
+                                              .withOpacity(0.77),
                                           fontSize: 14.22,
                                           letterSpacing: 0.25,
                                           fontFamily: "Rubik",
@@ -133,6 +175,7 @@ class _HomeState extends State<Home> {
                       }),
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(bottom: 50.0),
                 child: Row(
@@ -140,11 +183,12 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     Container(
-                      width: 65,
-                      height: 65,
+                      width: 208,
+                      height: 58,
                       decoration: BoxDecoration(
-                          color: Color(0xFF90a4ae),
-                          shape: BoxShape.circle,
+                          color: Color(0xFFffffff),
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(29),
                           boxShadow: [
                             BoxShadow(
                                 color: Color(0xFF90a4ae).withOpacity(0.6),
@@ -152,49 +196,45 @@ class _HomeState extends State<Home> {
                                 blurRadius: 10.0),
                           ]),
                       child: RawMaterialButton(
-                          shape: CircleBorder(),
-                          child: Icon(
-                            Icons.create,
-                            size: 35,
-                            color: Colors.black87,
+                          highlightColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          shape: StadiumBorder(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.add,
+                                size: 24,
+                                color: Colors.black87,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                "Add Thought",
+                                style: TextStyle(
+                                  color: Color(0xFF000000).withOpacity(0.77),
+                                  fontSize: 17,
+                                  letterSpacing: 0.25,
+                                  fontFamily: "Rubik",
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
                           ),
-                          onPressed: () {}),
+                          onPressed: () {
+                            print('adding thought');
+                            addThoughtModal.mainBottomSheet(context);
+                          }),
                     ),
                   ],
                 ),
               ),
-
             ],
           );
         },
       ),
-//      floatingActionButton: Row(
-//        mainAxisAlignment: MainAxisAlignment.center,
-//        crossAxisAlignment: CrossAxisAlignment.center,
-//        children: <Widget>[
-//          Container(
-//            width: 65,
-//            height: 65,
-//            decoration: BoxDecoration(
-//                color: Color(0xFF90a4ae),
-//                shape: BoxShape.circle,
-//                boxShadow: [
-//                  BoxShadow(
-//                      color: Color(0xFF90a4ae).withOpacity(0.6),
-//                      offset: Offset(0.0, 2.0),
-//                      blurRadius: 10.0),
-//                ]),
-//            child: RawMaterialButton(
-//                shape: CircleBorder(),
-//                child: Icon(
-//                  Icons.add,
-//                  size: 35,
-//                  color: Colors.black87,
-//                ),
-//                onPressed: () {}),
-//          ),
-//        ],
-//      ),
     );
   }
 }

@@ -22,6 +22,9 @@ class App extends StatelessWidget {
   
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: new ThemeData(
+        canvasColor: Colors.transparent
+      ),
       home: SignInWidget(),
     );
   }
