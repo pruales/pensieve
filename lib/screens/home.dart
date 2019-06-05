@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../fake_data/data.dart';
+
 //import '../widgets/addthoughtmodal_old.dart';
 import '../widgets/addthoughtmodal.dart';
 
@@ -31,9 +32,10 @@ class _HomeState extends State<Home> {
     );
   }
 
-  _buildTitle(double height) {
+  _buildTitle(double height, double notchHeight) {
+    print(notchHeight);
     return Positioned(
-      top: height * 0.05,
+      top: (height * 0.01) + notchHeight,
       left: 30,
       right: 30,
       child: Row(
@@ -81,23 +83,26 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: LayoutBuilder(
         builder: (context, constraints) {
           var width = constraints.maxWidth;
           var height = constraints.maxHeight;
-
+          var notchHeight = MediaQuery.of(context).padding.top;
+          print(constraints);
+          print(MediaQuery.of(context).size.height);
+          //TODO: use mediaquery padding to avoid notches
+          print(MediaQuery.of(context).padding);
           return Stack(
             fit: StackFit.expand,
             children: <Widget>[
               _buildBackground(width, height),
-              _buildTitle(height),
+              _buildTitle(height, notchHeight),
               Align(
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
-                  height: height * 0.7,
+                  height: (height - notchHeight) * 0.7,
                   child: ListView.builder(
                       itemCount: title.length,
                       scrollDirection: Axis.horizontal,
@@ -112,20 +117,6 @@ class _HomeState extends State<Home> {
                               children: <Widget>[
                                 Container(
                                   decoration: BoxDecoration(
-//                                    gradient: LinearGradient(
-//                                      // Where the linear gradient begins and ends
-//                                      begin: Alignment.topRight,
-//                                      end: Alignment.bottomLeft,
-//                                      // Add one stop for each color. Stops should increase from 0 to 1
-//                                      stops: [0.1, 0.5, 0.7, 0.9],
-//                                      colors: [
-//                                        // Colors are easy thanks to Flutter's Colors class.
-//                                        Colors.indigo[800],
-//                                        Colors.indigo[700],
-//                                        Colors.indigo[600],
-//                                        Colors.indigo[400],
-//                                      ],
-//                                    ),
                                       color: Color(0xFF83aaa6),
                                       boxShadow: [
                                         BoxShadow(
@@ -175,7 +166,6 @@ class _HomeState extends State<Home> {
                       }),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.only(bottom: 50.0),
                 child: Row(
