@@ -8,7 +8,7 @@ import 'package:pensieve/screens/sign_in_widget.dart';
 void main() {
   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
-//  debugPaintSizeEnabled = true;
+  //debugPaintSizeEnabled = true;
 
   runApp(App());
 

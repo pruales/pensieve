@@ -5,7 +5,7 @@ class AppModals {
       {@required BuildContext context,
       @required WidgetBuilder builder,
       Color color,
-      double radius = 20.0,
+      double radius = 15.0,
       Color bgColor,
       int animationDurationMs = 225}) {
     assert(context != null);
@@ -139,7 +139,7 @@ class _AppModalLayout extends SingleChildLayoutDelegate {
         minWidth: constraints.maxWidth,
         maxWidth: constraints.maxWidth,
         minHeight: 0.0,
-        maxHeight: constraints.maxHeight * 0.2);
+        maxHeight: constraints.maxHeight * 0.8);
   }
 
   @override
