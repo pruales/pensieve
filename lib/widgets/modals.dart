@@ -32,32 +32,6 @@ class AppModals {
   }
 }
 
-class _AppModalLayout extends SingleChildLayoutDelegate {
-  _AppModalLayout(this.progress, this.bottomInset);
-
-  final double progress;
-  final double bottomInset;
-
-  @override
-  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
-    return BoxConstraints(
-        minWidth: constraints.maxWidth,
-        maxWidth: constraints.maxWidth,
-        minHeight: 0.0,
-        maxHeight: constraints.maxHeight * 0.2);
-  }
-
-  @override
-  Offset getPositionForChild(Size size, Size childSize) {
-    return Offset(0.0, size.height - bottomInset - childSize.height * progress);
-  }
-
-  @override
-  bool shouldRelayout(_AppModalLayout oldDelegate) {
-    return progress != oldDelegate.progress || bottomInset != oldDelegate.bottomInset;
-  }
-}
-
 class _AppModalRoute<T> extends PopupRoute<T> {
   _AppModalRoute(
       {this.builder,
@@ -117,10 +91,14 @@ class _AppModalRoute<T> extends PopupRoute<T> {
         child: AnimatedBuilder(
           animation: appModalAnimation,
           builder: (context, child) => CustomSingleChildLayout(
-                delegate: _AppModalLayout(appModalAnimation.value, MediaQuery.of(context).viewInsets.bottom),
+                delegate: _AppModalLayout(appModalAnimation.value,
+                    MediaQuery.of(context).viewInsets.bottom),
                 child: BottomSheet(
                   animationController: _animationController,
-                  onClosing: () => Navigator.pop(context),
+                  onClosing: () {
+                    print('on closing');
+                    Navigator.pop(context);
+                  },
                   builder: (context) => Container(
                         decoration: BoxDecoration(
                           color: this.color,
@@ -147,4 +125,31 @@ class _AppModalRoute<T> extends PopupRoute<T> {
   @override
   Duration get transitionDuration =>
       Duration(milliseconds: animationDurationMs);
+}
+
+class _AppModalLayout extends SingleChildLayoutDelegate {
+  _AppModalLayout(this.progress, this.bottomInset);
+
+  final double progress;
+  final double bottomInset;
+
+  @override
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) {
+    return BoxConstraints(
+        minWidth: constraints.maxWidth,
+        maxWidth: constraints.maxWidth,
+        minHeight: 0.0,
+        maxHeight: constraints.maxHeight * 0.2);
+  }
+
+  @override
+  Offset getPositionForChild(Size size, Size childSize) {
+    return Offset(0.0, size.height - bottomInset - childSize.height * progress);
+  }
+
+  @override
+  bool shouldRelayout(_AppModalLayout oldDelegate) {
+    return progress != oldDelegate.progress ||
+        bottomInset != oldDelegate.bottomInset;
+  }
 }
