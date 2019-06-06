@@ -139,7 +139,7 @@ class _AppModalLayout extends SingleChildLayoutDelegate {
         minWidth: constraints.maxWidth,
         maxWidth: constraints.maxWidth,
         minHeight: 0.0,
-        maxHeight: constraints.maxHeight * 0.8);
+        maxHeight: constraints.maxHeight * 0.2);
   }
 
   @override

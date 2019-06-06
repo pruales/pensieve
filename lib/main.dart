@@ -5,12 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:pensieve/screens/sign_in_widget.dart';
 
 void main() {
-  SystemChrome.setEnabledSystemUIOverlays(
-      [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-  ));
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
   //debugPaintSizeEnabled = true;
 
   runApp(App());
@@ -19,6 +14,7 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: new ThemeData(canvasColor: Colors.transparent),
