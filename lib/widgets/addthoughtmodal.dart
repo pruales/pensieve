@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'modals.dart';
+import 'package:flutter/services.dart';
+import 'overlaydialog.dart';
 
 import '../fake_data/data.dart';
 
@@ -7,7 +9,6 @@ class AddThoughtModal {
   TextEditingController thoughtController = TextEditingController();
 
   mainBottomSheet(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
     FocusNode _focusNode = FocusNode();
     Future<void> future = AppModals.showAppModal(
         context: context,
@@ -54,16 +55,24 @@ class AddThoughtModal {
                     controller: thoughtController,
                   ),
                   IconButton(
-                    icon: Icon(Icons.check_box_outline_blank),
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.all(0.0),
-                    iconSize: 24,
-                    onPressed: () {
-                      thoughtController.text += '#';
-                      thoughtController.selection = TextSelection.collapsed(
-                          offset: thoughtController.text.length);
-                    },
-                  ),
+                      icon: Icon(Icons.check_box_outline_blank),
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.all(0.0),
+                      iconSize: 24,
+                      onPressed: () {
+                        thoughtController.text += '#';
+                        thoughtController.selection = TextSelection.collapsed(
+                            offset: thoughtController.text.length);
+                        showDialog(
+                          context: context,
+                          builder: (_) {
+                            SystemChannels.textInput
+                                .invokeMethod('TextInput.show');
+                            return OverlayDialog();
+                          },
+                        ).then((_) =>
+                            FocusScope.of(context).requestFocus(_focusNode));
+                      }),
                 ],
               ),
             ),

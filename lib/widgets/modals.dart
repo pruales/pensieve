@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppModals {
   static Future<T> showAppModal<T>(
@@ -73,6 +74,9 @@ class _AppModalRoute<T> extends PopupRoute<T> {
         curve: Curves.easeOut,
         reverseCurve: Curves.linear)
       ..addStatusListener((animationStatus) {
+        if (animationStatus == AnimationStatus.forward) {
+          SystemChannels.textInput.invokeMethod('TextInput.show');
+        }
         if (animationStatus == AnimationStatus.completed) {
           appModalAnimation.curve = Curves.linear;
         }
