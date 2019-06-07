@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'modals.dart';
 
+import '../fake_data/data.dart';
+
 class AddThoughtModal {
   TextEditingController thoughtController = TextEditingController();
 
@@ -24,6 +26,7 @@ class AddThoughtModal {
                   TextField(
                     focusNode: _focusNode,
                     autofocus: true,
+                    autocorrect: false,
                     textInputAction: TextInputAction.done,
                     textCapitalization: TextCapitalization.sentences,
                     style: TextStyle(
@@ -31,7 +34,7 @@ class AddThoughtModal {
                         fontSize: 17,
                         letterSpacing: 0.25,
                         fontFamily: "Rubik",
-                        fontWeight: FontWeight.w500),
+                        fontWeight: FontWeight.w400),
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'New Thought',
@@ -40,7 +43,7 @@ class AddThoughtModal {
                             fontSize: 17,
                             letterSpacing: 0.25,
                             fontFamily: "Rubik",
-                            fontWeight: FontWeight.w500)),
+                            fontWeight: FontWeight.w400)),
                     onEditingComplete: () {
                       print('editing complete');
                     },
@@ -51,15 +54,16 @@ class AddThoughtModal {
                     controller: thoughtController,
                   ),
                   IconButton(
-                      icon: Icon(Icons.check_box_outline_blank),
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.all(0.0),
-                      iconSize: 24,
-                      onPressed: () {
-                        thoughtController.text += '#';
-                        thoughtController.selection = TextSelection.collapsed(
-                            offset: thoughtController.text.length);
-                      })
+                    icon: Icon(Icons.check_box_outline_blank),
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(0.0),
+                    iconSize: 24,
+                    onPressed: () {
+                      thoughtController.text += '#';
+                      thoughtController.selection = TextSelection.collapsed(
+                          offset: thoughtController.text.length);
+                    },
+                  ),
                 ],
               ),
             ),
